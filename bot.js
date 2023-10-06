@@ -1,11 +1,15 @@
 const { Telegraf, Markup } = require('telegraf')
 const axios = require('axios')
 const cheerio = require('cheerio');
+require('dotenv').config();
 
-if (!process.env.BOT_TOKEN) throw new Error('"BOT_TOKEN" env var is required!');
+const BOT_TOKEN = process.env.BOT_TOKEN;
 
-const delete_terms = ["Favorites", "Watchers", "Popularity", "Drama"]
-const bot = new Telegraf(process.env.BOT_TOKEN)
+if (!BOT_TOKEN) throw new Error('"BOT_TOKEN" env var is required!');
+
+const delete_terms = ["Favorites", "Watchers", "Popularity", "Drama"];
+
+const bot = new Telegraf(BOT_TOKEN);
 
 const makeRequest = async (url) => {
     const axiosResponse = await axios.get(url, Headers = {"User-Agent": "Mozilla/5.0"})
@@ -16,7 +20,7 @@ const makeRequest = async (url) => {
     return await axiosResponse.data
 }
 
-var telegraph_token
+var telegraph_token;
 
 const createTelegraphAccount = async () => {
     return new Promise((resolve, _) => {
@@ -29,7 +33,7 @@ const createTelegraphAccount = async () => {
 }
 
 createTelegraphAccount().then((token) => {
-    telegraph_token = token
+    telegraph_token = token;
 })
 
 const fetchDramaDetails = async (drama_url) => {

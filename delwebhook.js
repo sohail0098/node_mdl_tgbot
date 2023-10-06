@@ -1,6 +1,8 @@
 const { Telegraf } = require('telegraf')
 const axios = require('axios')
 
+require('dotenv').config()
+
 if (!process.env.BOT_TOKEN) throw new Error('"BOT_TOKEN" env var is required!');
 
 const bot = new Telegraf(process.env.BOT_TOKEN)
